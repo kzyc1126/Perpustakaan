@@ -3,10 +3,6 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="card">
-    <div class="card-header">
-
-    </div>
-  </div>
+  @include('Books.index')
 </div>
 @endsection

@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoginController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +17,14 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
-
+Route::middleware('auth')->group(function(){
+    Route::resource('/', BookController::class);
+    Route::get('/tambahbuku', [BookController::class,'create']);
+    Route::post('/tambahbuku',[BookController::class,'store']);
+    Route::post('/tambahbuku',[BookController::class,'store']);
+    Route::get('/{id}/edit', [BookController::class,'edit']);
+    Route::put('',[BookController::class,'update'])->name('book.update');
+});
 
 
 Route::get('/login',[LoginController::class,'index'])->name('login')->middleware('guest');

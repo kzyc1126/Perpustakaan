@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBookRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
@@ -15,7 +17,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+       
+        return view('Books.index',[
+            "books" => Book::latest()->search()->paginate(15)->withQueryString()
+        ]);
     }
 
     /**
@@ -25,7 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+       return view('Books.create');
     }
 
     /**
@@ -36,7 +41,16 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'=>'required',
+            'synopsis'=>'required',
+            'image' =>'image|file|max:1024'
+        ]);
+        if($request->file('image')){
+            $validatedData['image']= $request->file('image')->store('book_images');
+        };
+        Book::create($validatedData);
+        return redirect('/')->with('sucess','Buku Berhasil Ditambahkan');
     }
 
     /**
@@ -56,9 +70,11 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
-        //
+        $book = Book::findorfail($id);
+        return view('Books.edit',[
+            'book'=>$book]);
     }
 
     /**
@@ -68,11 +84,28 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'=>'required',
+            'synopsis'=>'required',
+            'image' =>'image|file|max:1024'
+        ]);
+        if($request->file('image')){
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image']= $request->file('image')->store('book_images');
+        };
+        Book::where('id',$request->id)
+        ->update($validatedData);
+        return redirect('/')->with('success','Data Berhasil Dihapus');
     }
-
+    public function delete($id){
+        $book= Book::find($id); 
+        $book->delete();
+        return redirect('/')->with('success','Data Berhasil Dihapus');
+    }
     /**
      * Remove the specified resource from storage.
      *
