@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateBookRequest;
+use Carbon\Carbon;
 
 class BookController extends Controller
 {
@@ -73,8 +74,10 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::findorfail($id);
+     
         return view('Books.edit',[
-            'book'=>$book]);
+            'book'=>$book
+        ]);
     }
 
     /**

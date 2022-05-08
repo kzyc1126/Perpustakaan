@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReservationController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -21,10 +22,12 @@ Route::middleware('auth')->group(function(){
     Route::resource('/', BookController::class);
     Route::get('/tambahbuku', [BookController::class,'create']);
     Route::post('/tambahbuku',[BookController::class,'store']);
-    Route::post('/tambahbuku',[BookController::class,'store']);
     Route::get('/{id}/edit', [BookController::class,'edit']);
     Route::put('',[BookController::class,'update'])->name('book.update');
     Route::get('/delete/{id}', [BookController::class,'delete']);
+    Route::get('/pinjambuku',[ReservationController::class,'create']);
+    Route::post('/pinjambuku',[ReservationController::class,'store']);
+    Route::resource('/listpinjambuku',ReservationController::class);
 });
 
 

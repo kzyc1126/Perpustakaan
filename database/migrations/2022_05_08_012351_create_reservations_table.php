@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('id_pinjam');
             $table->foreignId('user_id');
             $table->integer('total_books');
             $table->dateTime('borrow_date'); 
             $table->dateTime('must_return_date');
-            $table->dateTime('return_date');
+            $table->dateTime('return_date')->nullable();
             $table->timestamps();
         });
     }

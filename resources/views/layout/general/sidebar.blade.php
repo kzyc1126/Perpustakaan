@@ -8,7 +8,9 @@
         <div class="image">
          <i class="fas fa-user-circle "style="font-size: 2rem; color:white;"></i>
         </div>
-       
+        <div class="info">
+          <a href="#" class="d-block">{{ Auth()->user()->username }}</a>
+                </div>
       </div>
 
       <!-- SidebarSearch Form -->
@@ -27,14 +29,21 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="sales" class="nav-link">
+            <a href="pinjambuku" class="nav-link">
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Pinjam Buku
               </p>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a href="listpinjambuku" class="nav-link">
+              <i class="nav-icon fas fa-list"></i>
+              <p>
+                Daftar Pinjaman Buku
+              </p>
+            </a>
+          </li>
           <li>
             <form action="/logout" method="POST">
               @csrf

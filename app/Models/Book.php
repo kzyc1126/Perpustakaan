@@ -18,4 +18,7 @@ class Book extends Model
     }
     protected $fillable = ['title','synopsis','image'];
     protected $dates = ['deleted_at'];
+    public function reservation_detail(){
+        return $this->belongsTo(reservation_detail::class,'book_id');
+    }
 }

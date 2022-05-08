@@ -13,34 +13,6 @@
                 </button>
             </div>
         @endif
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h4 class="mb-0">
-                    <button class="btn btn-link text-center" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                        Panduan
-                    </button>
-                    </h5>
-            </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body d-flex flex-column">
-
-                    <div class="d-flex flex-row my-2">
-                        <div class="btn btn-primary mx-2"><i class="fas fa-edit"></i></div>
-                        <p>Tombol untuk mengubah data buku</p>
-                    </div>
-                    <div class="d-flex flex-row my-2">
-                        <div class="btn btn-info mx-2"><i class="fas fa-eye"></i></div>
-                        <div>Tombol untuk melihat detail buku</div>
-                    </div>
-                    <div class="d-flex flex-row my-2">
-                        <div class="btn btn-danger mx-2"><i class="fas fa-trash"></i></div>
-                        <div>Tombol untuk menghapus buku</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>
 <div class="card">
@@ -75,15 +47,23 @@
                         <tr>
                             <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1"
                                 colspan="1">
-                                Judul Buku
+                                ID Peminjaman
                             </th>
                             <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1"
                                 colspan="1">
-                                Sinopsis
+                                Peminjam
                             </th>
                             <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1"
                                 colspan="1">
-                                Status
+                                Tanggal Peminjaman
+                            </th>
+                            <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1">
+                            Tanggal Peminjaman Berakhir
+                            </th>
+                            <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1">
+                            Tanggal Kembali
                             </th>
 
                             <th class=" text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
@@ -92,23 +72,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($books) > 0)
-                            @foreach($books as $book)
+                        @if(count($reservations) > 0)
+                            @foreach($reservations as $reservation)
                                 <tr>
-                                    <td class="text-center" contenteditable='false'>{{ $book->title }}</td>
-                                    <td class="text-center" contenteditable='false'>{{ $book->synopsis }}
+                                    <td class="text-center" contenteditable='false'>{{ $reservation->id_pinjam}}</td>
+                                    <td class="text-center" contenteditable='false'>{{ $reservation->user->name}}</td>
+                                    <td class="text-center" contenteditable='false'>{{ $reservation->borrow_date }}
+                                    <td class="text-center" contenteditable='false'>{{ $reservation->must_return }}
                                     </td>
-                                    @if($book->is_borrowed == false)
-                                        <td class="text-center text-green" contenteditable='false'> Tersedia </td>
+                                    @if($reservation->return_date == null)
+                                        <td class="text-center text-red" contenteditable='false'> Belum Dikembalikan </td>
                                     @else
-                                        <td class="text-center text-red" contenteditable='false'> Dipinjam </td>
+                                        <td class="text-center text-red" contenteditable='false'> {{ $reservation->return_date }} </td>
                                     @endif
                                     <td class="text-center">
-                                        <a href="/{{ $book->id }}/edit" title="Ubah" type="button"
+                                        <a href="/{{ $reservation->id }}/edit" title="Ubah" type="button"
                                             class="btn btn-primary">
                                             <i class=" fas fa-edit"></i></a>
 
-                                        <a href="/delete/{{ $book->id }}" title="See History" type="button"
+                                        <a href="/delete/{{ $reservation->id }}" title="See History" type="button"
                                             class="btn btn-danger">
                                             <i class=" fas fa-trash"></i></a>
                                     </td>
@@ -125,7 +107,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            {{ $books->links() }}
+            {{ $reservations->links() }}
         </div>
 
     </div>
