@@ -56,7 +56,6 @@ class ReservationController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        // dd($request);
         $reservation = new Reservation();
         $reservation->id_pinjam = $request->id_pinjam;
         $reservation->user_id = $request->borrower_id;
@@ -108,7 +107,7 @@ class ReservationController extends Controller
      */
     public function update($id)
     {
-        // dd($id);
+    
         $reservation= Reservation::findorfail($id);
         $reservation->return_date = Carbon::now();
         $reservation->save(); 
