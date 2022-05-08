@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 'name'=>'Loid',
                 'email'=>'admin@perpustakaan.com',
                 'address'=>'Orchard rd. 20',
-                'password' => bcrypt('123456'), // password
+                'password' => bcrypt('12345678'), // password
                 'is_admin' => true,
                      
             ] );

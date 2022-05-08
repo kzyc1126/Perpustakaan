@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="d-flex  justify-content-between">
-    <h1>Daftar Buku</h1>
+    <h1>Daftar Peminjaman</h1>
     <div style="width:40%" id="accordion">
         @if(session()->has('success'))
             <div class="alert alert-success" role="alert">
@@ -19,10 +19,10 @@
     <div class="card-body">
         <div id="category_wrapper">
             <div class="row flex-row justify-content-between">
-                <form class="form-inline" action="/">
+                <form class="form-inline" action="/listpinjambuku">
                     <div class="input-group ml-2 mb-2">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            id="search_title" name="search_title" value={{ request('search_title') }}>
+                            id="search_reservation" name="search_reservation" value={{ request('search_reservation') }}>
                         <div class="input-group-append">
                             <button class="btn btn-info" type="submit">
                                 <i class="fas fa-search fa-fw"></i>
@@ -30,12 +30,6 @@
                         </div>
                     </div>
                 </form>
-                <div class="row flex-row-reverse mb-2 mr-2">
-
-                    <a class="btn btn-success" href="/tambahbuku">
-                        Tambah buku </a>
-                </div>
-
             </div>
         </div>
         <div class="row">
@@ -88,7 +82,7 @@
                                                 <i class=" fas fa-check"></i></a>
                                         </td>
                                     @else
-                                        <td class="text-center text-red" contenteditable='false'> {{ $reservation->return_date }} </td>
+                                        <td class="text-center text-red" contenteditable='false'> {{ date('d-M-Y', strtotime($reservation->return_date)) }} </td>
                                         <td></td>
                                     @endif
                                     
