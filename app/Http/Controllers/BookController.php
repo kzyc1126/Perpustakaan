@@ -99,7 +99,7 @@ class BookController extends Controller
         };
         Book::where('id',$request->id)
         ->update($validatedData);
-        return redirect('/')->with('success','Data Berhasil Dihapus');
+        return redirect('/')->with('success','Data Berhasil Diubah');
     }
     public function delete($id){
         $book= Book::find($id); 

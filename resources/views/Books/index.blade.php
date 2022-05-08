@@ -1,9 +1,18 @@
 @extends('layout.main')
 
 @section('content')
+
 <div class="d-flex  justify-content-between">
     <h1>Daftar Buku</h1>
     <div style="width:40%" id="accordion">
+        @if(session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h4 class="mb-0">
@@ -41,8 +50,7 @@
                 <form class="form-inline" action="/">
                     <div class="input-group ml-2 mb-2">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            id="search_stock" name="search_stock"
-                            value={{ request('search_stock') }}>
+                            id="search_stock" name="search_stock" value={{ request('search_stock') }}>
                         <div class="input-group-append">
                             <button class="btn btn-info" type="submit">
                                 <i class="fas fa-search fa-fw"></i>
@@ -59,7 +67,7 @@
             </div>
         </div>
         <div class="row">
-       
+
             <div class="col-sm-12">
                 <table id="table" class="table table-bordered table-hover dataTable dtr-inline"
                     aria-describedby="example2_info">
@@ -91,15 +99,17 @@
                                     <td class="text-center" contenteditable='false'>{{ $book->synopsis }}
                                     </td>
                                     @if($book->status == false)
-                                    <td class="text-center text-green" contenteditable='false'> Tersedia </td>
+                                        <td class="text-center text-green" contenteditable='false'> Tersedia </td>
                                     @else
-                                    <td class="text-center text-green" contenteditable='false'> Dipinjam </td>
+                                        <td class="text-center text-green" contenteditable='false'> Dipinjam </td>
                                     @endif
                                     <td class="text-center">
-                                        <a href="/{{ $book->id }}/edit"title="Ubah" type="button" class="btn btn-primary">
+                                        <a href="/{{ $book->id }}/edit" title="Ubah" type="button"
+                                            class="btn btn-primary">
                                             <i class=" fas fa-edit"></i></a>
-                                      
-                                         <a title="See History" type="button" class="btn btn-danger">
+
+                                        <a href="/delete/{{ $book->id }}" title="See History" type="button"
+                                            class="btn btn-danger">
                                             <i class=" fas fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -117,7 +127,7 @@
         <div class="d-flex justify-content-center">
             {{ $books->links() }}
         </div>
-       
+
     </div>
 </div>
 

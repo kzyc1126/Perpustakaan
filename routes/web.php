@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/tambahbuku',[BookController::class,'store']);
     Route::get('/{id}/edit', [BookController::class,'edit']);
     Route::put('',[BookController::class,'update'])->name('book.update');
+    Route::get('/delete/{id}', [BookController::class,'delete']);
 });
 
 
