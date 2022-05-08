@@ -18,7 +18,7 @@ class Reservation extends Model
         
     }
     public function user(){
-        return $this->belongsTo(user::class)->withTrashed();
+        return $this->belongsTo(user::class);
     } 
 
 }

@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/pinjambuku',[ReservationController::class,'create']);
     Route::post('/pinjambuku',[ReservationController::class,'store']);
     Route::resource('/listpinjambuku',ReservationController::class);
+    Route::get('/finish/{id}', [ReservationController::class,'update']);
 });
 
 

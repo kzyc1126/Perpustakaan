@@ -77,23 +77,21 @@
                                 <tr>
                                     <td class="text-center" contenteditable='false'>{{ $reservation->id_pinjam}}</td>
                                     <td class="text-center" contenteditable='false'>{{ $reservation->user->name}}</td>
-                                    <td class="text-center" contenteditable='false'>{{ $reservation->borrow_date }}
-                                    <td class="text-center" contenteditable='false'>{{ $reservation->must_return }}
+                                    <td class="text-center" contenteditable='false'>{{ date('d-M-Y', strtotime($reservation->borrow_date))  }} </td>
+                                    <td class="text-center" contenteditable='false'>{{ date('d-M-Y', strtotime($reservation->must_return_date)) }}
                                     </td>
                                     @if($reservation->return_date == null)
                                         <td class="text-center text-red" contenteditable='false'> Belum Dikembalikan </td>
+                                        <td class="text-center">
+                                            <a href="/finish/{{ $reservation->id }}" title="Ubah" type="button"
+                                                class="btn btn-success">
+                                                <i class=" fas fa-check"></i></a>
+                                        </td>
                                     @else
                                         <td class="text-center text-red" contenteditable='false'> {{ $reservation->return_date }} </td>
+                                        <td></td>
                                     @endif
-                                    <td class="text-center">
-                                        <a href="/{{ $reservation->id }}/edit" title="Ubah" type="button"
-                                            class="btn btn-primary">
-                                            <i class=" fas fa-edit"></i></a>
-
-                                        <a href="/delete/{{ $reservation->id }}" title="See History" type="button"
-                                            class="btn btn-danger">
-                                            <i class=" fas fa-trash"></i></a>
-                                    </td>
+                                    
                                 </tr>
                             @endforeach
                         @else

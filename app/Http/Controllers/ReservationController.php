@@ -106,9 +106,20 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
+    public function update($id)
     {
-        //
+        // dd($id);
+        $reservation= Reservation::findorfail($id);
+        $reservation->return_date = Carbon::now();
+        $reservation->save(); 
+
+        $details = reservation_detail::all()->where('reservation_id',$id);
+        foreach($details as $detail){
+            $book = Book::findorfail($detail->book_id);
+            $book->is_borrowed = false;
+            $book->save();
+        }
+        return redirect('/listpinjambuku');
     }
 
     /**
